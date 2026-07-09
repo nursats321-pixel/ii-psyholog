@@ -1,0 +1,230 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MindFlow AI</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <h2>MindFlow</h2>
+
+                <span>AI Companion</span>
+
+            </div>
+
+        </div>
+
+        <button class="new-chat">
+
+            + Новый чат
+
+        </button>
+
+        <div class="history-title">
+
+            История
+
+        </div>
+
+        <div class="history">
+
+            <div class="history-item active">
+
+                Сегодня
+
+            </div>
+
+            <div class="history-item">
+
+                Вчера
+
+            </div>
+
+            <div class="history-item">
+
+                Отношения
+
+            </div>
+
+            <div class="history-item">
+
+                Работа
+
+            </div>
+
+            <div class="history-item">
+
+                Самооценка
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Chat -->
+
+    <main class="chat">
+
+        <div class="topbar">
+
+            <div>
+
+                <h2>AI Therapist</h2>
+
+                <p>● Онлайн</p>
+
+            </div>
+
+            <select name="mood" form="chatForm">
+
+                <option value="SUPPORTIVE">
+
+                    🩵 Психолог
+
+                </option>
+
+                <option value="ICE_AGE">
+
+                    ❄️ Холодный
+
+                </option>
+
+                <option value="LOVE_BOMBING">
+
+                    ❤️ Love Bombing
+
+                </option>
+
+                <option value="TOXIC">
+
+                    😈 Токсичный
+
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="messages">
+
+            <div class="message bot">
+
+                <div class="avatar">
+
+                    🤖
+
+                </div>
+
+                <div class="bubble">
+
+                    Привет! 👋
+
+                    Я MindFlow AI.
+
+                    Выберите режим общения и начните диалог.
+
+                </div>
+
+            </div>
+
+            {% if request.method == "POST" %}
+
+            <div class="message user">
+
+                <div class="bubble">
+
+                    {{ request.POST.message }}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+            {% if answer %}
+
+            <div class="message bot">
+
+                <div class="avatar">
+
+                    🤖
+
+                </div>
+
+                <div class="bubble">
+
+                    {{ answer }}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <form method="POST" id="chatForm">
+
+            {% csrf_token %}
+
+            <div class="input-area">
+
+                <textarea
+
+                        name="message"
+
+                        placeholder="Напишите сообщение..."
+
+                        required>
+
+                </textarea>
+
+                <button type="submit">
+
+                    ➜
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+<script src="{% static 'js/chat.js' %}"></script>
+
+</body>
+
+</html>
